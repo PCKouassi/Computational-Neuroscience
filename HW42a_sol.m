@@ -1,0 +1,110 @@
+function HW42a_sol(~)
+
+%% Params
+clear
+clc
+clf
+
+%%%%%%%% Excitatory %%%%%%%%%
+global N_exc r_exc G_exc tau_1_exc tau_2_exc Esyn_exc delta_Ps_exc 
+
+N_exc = 2;
+r_exc = 0.1;
+G_exc = 5;
+tau_1_exc = 0.5; %ms
+tau_2_exc = 0.25; %ms 
+Esyn_exc = 50; %mV 
+delta_Ps_exc = 0.1;
+
+%%%%%%%% Inhibitory %%%%%%%%
+global N_inh r_inh   G_inh tau_1_inh tau_2_inh Esyn_inh delta_Ps_inh
+N_inh = 2;
+r_inh = 0.1;
+G_inh = 5;
+tau_1_inh = 1; %ms, 
+tau_2_inh = 0.5; %ms,
+Esyn_inh = -100; %mV 
+delta_Ps_inh = 0.1;
+
+%%%%%% General %%%%%%%%%
+global a b c d Vrest Vthresh delta_t tmax Delta tau1 tau2
+a = 10;
+b = 0.0;
+d = 6;
+c = -82.7; %mV
+tau1 =.1;
+tau2=tau1/2;
+Vrest = -82.7; %mV
+Vthresh = 30; %mV
+delta_t = 0.01; %ms 
+tmax = 200; %ms
+Delta=0.1;
+
+%%%%%% Part C Params%%%%%%%%%
+% i.)
+N_exc =100;
+N_inh =100;
+r_exc =.085;
+r_inh =.085;
+G_exc = .343;
+G_inh = 0;
+c = -82.7;
+Vrest = -82.7;
+Esyn_inh = c;
+tmax = 20000;
+
+% ii.)
+% N_exc =100;
+% N_inh =100;
+% r_exc =.085;
+% r_inh =.085;
+% G_exc = 20;
+% G_inh = 10;
+% c = -82.7;
+% Vrest = -82.7;
+% Esyn_inh = c;
+% tmax = 20000;
+
+%%%%%%%% Part D Params %%%%%%%%%%
+%%Balanced r_input  = .07
+% N_exc =100;
+% N_inh =100;
+% r_exc =.09;
+% r_inh =.09;
+% G_exc = 20;
+% G_inh = 10;
+% c = -82.7;
+% Vrest = -82.7;
+% Esyn_inh = c;
+% tmax = 20000;
+
+%%Balanced r_input  = .1
+% N_exc =100;
+% N_inh =100;
+% r_exc =.1;
+% r_inh =.1;
+% G_exc = 20;
+% G_inh = 10;
+% c = -82.7;
+% Vrest = -82.7;
+% Esyn_inh = c;
+% tmax = 20000;
+%% Initial Values
+global Y_Init
+V_neuron = 0;
+u_neuron = 0;
+A_neuron = 0;
+B_neuron = 0;
+
+A_exc = 0;
+B_exc = 0;
+
+A_inh = 0;
+B_inh = 0;
+
+Y_Init = [V_neuron, u_neuron, A_neuron, B_neuron, A_exc,B_exc,A_inh,B_inh];
+
+izhi_core_2cellsHW42a()
+global mean_spike variance total_exc_r total_inh_r total_neuron_r
+fprintf('Data Analysis \nNumber of Spikes Mean: %.2f spikes\nVariance in Number of Spikes:%.2f\nFiring Rate Neuron: %.2f \nFiring Rate Exc: %.2f [mV]\nFiring Rate Inh: %.2f [mV]\n',mean_spike, variance,total_neuron_r, total_exc_r, total_inh_r);
+end
